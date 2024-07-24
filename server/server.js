@@ -2,17 +2,12 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const https = require('https');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const AKENEO_BASE_URL = process.env.AKENEO_BASE_URL;
 
-// // Create an HTTPS agent that ignores certificate errors
-// const httpsAgent = new https.Agent({  
-//   rejectUnauthorized: false
-// });
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,7 +21,6 @@ app.post('/api/token', async (req, res) => {
         headers: {
           'Content-Type': 'application/json',
         }
-        // httpsAgent: httpsAgent
       }
     );
     res.json(response.data);
@@ -48,7 +42,6 @@ app.get('/api/*', async (req, res) => {
         headers: {
           Authorization: token,
         }
-        // httpsAgent: httpsAgent
       }
     );
     res.json(response.data);
